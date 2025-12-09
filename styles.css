@@ -6,11 +6,13 @@ body{
     align-items: center;
     justify-content: center;
     color: #D7D7D7;
+    flex-direction: column;
+    overflow-x: hidden;
 }
 
 #count_down_container{
-    width: 250px;
-    height: 250px;
+    width: 20vw;
+    height: 20vw;
     border-radius: 13px;
     background-color: #4A4646;
     display: flex;
@@ -41,4 +43,58 @@ body{
 
 #outer_ring img:hover{
     cursor: pointer;
+}
+
+#animation{
+    height: 200px;
+    width: 250px;
+    /* border-radius: 50% */
+    background-color: transparent;
+    position: absolute;
+}
+
+#animation.one {
+    background-image: url("cloud.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: move 20s linear infinite;
+}
+
+#animation.two {
+    background-image: url("dark_cloud.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: move 20s linear infinite;
+}
+
+#animation.three {
+    background-image: url("rainy.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: move 20s linear infinite;
+}
+
+#animation.four{
+    background-image: url("cloud.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: move 20s linear infinite;
+}
+
+
+@keyframes move {
+    0%{
+        margin-left: 0;
+        left: 0;
+        top: 10vh;
+    }
+
+    100%{
+        top: 10vh;
+        left: 100vw;
+    }
 }

@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="animation"></div>
+    <h1 id="wheater"></h1>
+
+
     <div id="count_down_container">
         <div id="outer_ring">
             <h1 id="time_left">20:20</h1>
@@ -15,6 +19,38 @@
     </div>
 </body>
 <script>
+window.addEventListener('load', async () => {
+    const response = await fetch('https://wttr.in/Rotterdam?format=3')
+    const weerTekst = await response.text();
+    const wheater_element = document.getElementById("wheater")
+    const animation_element = document.getElementById("animation")
+
+    const match = weerTekst.match(/[\+\-]?\d+°C/);
+    
+    let temp = 0
+
+    if (match) {
+        let temp = match[0];
+        temp = temp.replace ("+", "");
+        console.log(temp);
+    }
+
+    if (temp > 10) {
+        animation_element.classList.add("one")
+    }
+    
+    if (temp > 15) {
+        animation_element.classList.add("two")
+    } 
+    else if (temp > 21) {
+        animation_element.classList.add("three")
+    } 
+    else {
+        animation_element.classList.add("four")
+    }
+
+    wheater_element.innerHTML = weerTekst
+});
 
 let timer_stopped = false;
 let timer_running = false;
