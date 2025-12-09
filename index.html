@@ -10,40 +10,72 @@
     <div id="count_down_container">
         <div id="outer_ring">
             <h1 id="time_left">20:20</h1>
-            <img id="button" src="pauze.png">
+            <img id="button" src="play.png">
         </div>
     </div>
 </body>
 <script>
 
+let timer_stopped = false;
+let timer_running = false;
+let timer = null; 
+
 const startTimer = () => {
+    timer_stopped = false;
+
+    const icon_element = document.getElementById("button");
+    icon_element.src = "pauze.png";
+
     let time_left_element = document.getElementById("time_left");
     let time_left_text = time_left_element.innerHTML;
+    const init_time_text = time_left_text;
 
     let time_left_string = time_left_text.split(':');
-
     let mn = parseInt(time_left_string[0]);
     let sec = parseInt(time_left_string[1]);
 
-    let timer = setInterval(() => {
+    timer = setInterval(() => {
+        if (timer_stopped) {
+            clearInterval(timer);
+            timer = null;
+            time_left_element.innerHTML = init_time_text;
+            icon_element.src = "play.png";
+            return;
+        }
+
         if (sec === 0) {
             if (mn === 0) {
+                clearInterval(timer);
+                timer = null;
                 console.log("Timer finished!");
                 return;
             }
-
             mn = mn - 1;
             sec = 59;
         } else {
             sec = sec - 1;
         }
 
-        time_left_element.innerHTML = `${mn}:${sec.toString().padStart(2, '0')}`;
-        console.log(`mn ${mn}, sec ${sec}`);
+        time_left_element.innerHTML =
+            `${mn}:${sec.toString().padStart(2, '0')}`;
     }, 1000);
 };
 
+const toggleTimer = () => {
+    if (timer_running) {
+        timer_running = false;
+        stopTImer();
+    } else {
+        timer_running = true;
+        startTimer();
+    }
+};
 
-document.getElementById("button").addEventListener("click", startTimer);
+const stopTImer = () => {
+    timer_stopped = true;
+};
+
+document.getElementById("button").addEventListener("click", toggleTimer);
+
 </script>
 </html>
