@@ -9,9 +9,41 @@
 <body>
     <div id="count_down_container">
         <div id="outer_ring">
-            <h1>20:20</h1>
-            <img src="pauze.png">
+            <h1 id="time_left">20:20</h1>
+            <img id="button" src="pauze.png">
         </div>
     </div>
 </body>
+<script>
+
+const startTimer = () => {
+    let time_left_element = document.getElementById("time_left");
+    let time_left_text = time_left_element.innerHTML;
+
+    let time_left_string = time_left_text.split(':');
+
+    let mn = parseInt(time_left_string[0]);
+    let sec = parseInt(time_left_string[1]);
+
+    let timer = setInterval(() => {
+        if (sec === 0) {
+            if (mn === 0) {
+                console.log("Timer finished!");
+                return;
+            }
+
+            mn = mn - 1;
+            sec = 59;
+        } else {
+            sec = sec - 1;
+        }
+
+        time_left_element.innerHTML = `${mn}:${sec.toString().padStart(2, '0')}`;
+        console.log(`mn ${mn}, sec ${sec}`);
+    }, 1000);
+};
+
+
+document.getElementById("button").addEventListener("click", startTimer);
+</script>
 </html>
